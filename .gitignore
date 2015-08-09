@@ -1,0 +1,5 @@
+.idea
+
+project_one/settings_local.py
+*.pyc
+
