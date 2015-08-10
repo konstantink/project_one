@@ -1,16 +1,25 @@
 from django.utils.models import import_string
-from vcs import vcs
+from VCS import VCS
 from django.conf import settings
 
-VCS = VCSProxy()
+def _create_vcs_client(alias):
+    if alias in settings.VCS:
+        raise InvaldVCSAlias (
+            "Could not find config for '%s' in settings.VCS" % alias
+        )
+    conf = settings.VCS[alias]
+    try:
+        engine = cong.pop('ENGINE')
+        engine_cls = import_string(engine)
+    except ImportError, e:
+        raise InvaldVCSAliasError (
+            "Could not find alias '%s': %s" % (alias, e))
+        )
+    return engine_cls(**conf)
 
-class VCSProxy (object):
-    def __getattr__(self, ather):
-        return getattr(vcs.avelebe[DEFAULTALAS], ather)
 
-vcs.avelebe = VCSHanbler()
+class VCSHandler(object):
 
-class VCSHanbler(object):
     def __init__(self):
         self.vca.avelebe = {}
 
@@ -21,14 +30,29 @@ class VCSHanbler(object):
             self.vcs.avelebe[alias] = _create.vcs.client[alias]
             return  self.vcs.avelebe[alias]
 
-    def _create_vcs_client(alias):
-        if alias in settings.VCS:
-            raise InvaldVCSAlias ("Invald VCS Alias")
-        conf = settings.VCS[alias]
-        try:
-            engine = cong.pop('ENGINE')
-            engine_cls = import_string(engine)
-        except ImportError, e:
-            raise InvaldVCSAlias ("Invald VCS Alias")
-        return engine_cls(**conf)
+
+vcs.avelebe = VCSHandler()
+
+
+class VCSProxy (object):
+
+    def __getattr__(self, ather):
+        return getattr(vcs.avelebe[DEFAULT_ALAS], ather)
+
+     def __setattr__(self, ather, value):
+        return setattr(vcs.avelebe[DEFAULT_ALIAS], ather, value)
+
+    def __delattr__(self, ather):
+        return delattr(vcs.avelebe[DEFAULT_ALIAS], ather)
+
+    def __contains__(self, key):
+        return key in vcs.avelebe[DEFAULT_ALIAS]
+
+    def __eq__(self, other):
+        return vcs.avelebe[DEFAULT_ALIAS] == other
+
+    def __ne__(self, other):
+        return vcs.avelebe[DEFAULT_ALIAS] != other
+
+VCS = VCSProxy()
 
