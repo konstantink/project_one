@@ -1,14 +1,10 @@
 from django.db import models
+from server.choices import all_choices
+
 
 class Patch (models.Model):
-    PLATFORM_CHOICES = (
-    ('0','Win32'),
-    ('1','Win64'),
-    ('3','Lin32'),
-    ('4','Lin64'),
-    )
     name = models.CharField(max_length=255)
-    platform =  models.IntegerField(choices=PLATFORM_CHOICES)
+    platform = models.IntegerField(choices=PLATFORM_CHOICES)
     bild_type = models.IntegerField(null=True, blank=True)
     rivera = models.CharField(max_length=255, null=True, blank=True)
     lint = models.CharField(max_length=255, null=True, blank=True)
@@ -36,12 +32,7 @@ class TestGrop(models.Model):
     def __unicode__(self):
         return self.name
 
-class TestSuiteType (models.Model):
-    PRIORITY_CHOICES = (
-    ('0','Low'),
-    ('1','Normal'),
-    ('3','High'),
-    )
+class TestSuiteType(models.Model):
     name = models.CharField(max_length=255)
     priority = models.IntegerField(choices=PRIORITY_CHOICES)
 
@@ -74,7 +65,7 @@ class TestResult(models.Model):
     def __unicode__(self):
         return self.name
 
-class History (models.Model):
+class History(models.Model):
     test_suite = models.ForeignKey(TestSuite)
     group_id = models.ForeignKey(TestGrop)
     test_id = models.ForeignKey(Test)
