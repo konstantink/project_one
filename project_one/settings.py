@@ -72,9 +72,10 @@ DATABASES = {
 
 VCS = {
     'default': {
-        'LOCATION': 'svn://localhost',
+        'LOCATION': 'http://svnurl.com/svn',
         'ENGINE': 'vcs.client,svn.client',
-        'HOST': '5431',
+        'PORT': '7000',
+        'HOST': 'localhost',
         'USER': 'patt',
         'PASSWORD': '7140819',
     }

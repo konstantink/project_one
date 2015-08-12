@@ -1,27 +1,29 @@
-import sys, os
+import sys
+import os
+import pysvn
 from VCS import VCS
 
 
 class Client(object):
-    def __init__(self,url_or_path, *args, **kwargs):
-        self.__url_or_path = url_or_path
-        self.__username = kwargs.pop('username', None)
-        self.__password = kwargs.pop('password', None)
+    def __init__(self):
+        self.client = pysvn.Client()
 
-    def run_command():
-        """
-        Запускает команды
-        """
-        pass
+    def get_login(realm, username, may_save):
+        name = raw_input("Enter your svn login : ")
+        password = getpass.getpass("Enter your svn password :")
+        return True, name, password, True
 
-    def export(self, to_path, revision=None):
-        cmd = []
+    self.client.callback_get_login = get_login
 
-        if revision is not None:
-            cmd += ['-r', str(revision)]
+    log_message = "reason for change"
 
-        cmd += [self.__url_or_path, to_path]
+    def get_log_message(Client):
+        return True, log_message
 
-        self.run_command('export', cmd)
+    self.client.callback_get_log_message = get_log_message
+
+    def export(Client):
+        self.client.export('file://'+ svnpath)
+
 
 
