@@ -1,3 +1,4 @@
+#system Settings
 Win32=0
 Win64=1
 Lin32=2
@@ -10,6 +11,8 @@ PLATFORM_CHOICES = (
 (Lin64,'Lin64'),
 )
 
+
+#priority 
 Low=0
 Normal=1
 High=2
