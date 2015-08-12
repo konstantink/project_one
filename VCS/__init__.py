@@ -1,9 +1,9 @@
 from django.utils.models import import_string
 from django.conf import settings
 from VCS import VCS
-from vcs.errors import errors
+from vcs.errors.errors import *
 
-def _create_vcs_client(alias):
+def __vcs_client(alias):
     if alias in settings.VCS:
         raise InvaldVCSAlias(
             "Could not find config for '%s' in settings.VCS" % alias
