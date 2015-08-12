@@ -2,7 +2,7 @@ from django.db import models
 from server.choices.all_choices import *
 
 
-class Patch (models.Model):
+class Patch(models.Model):
     name = models.CharField(max_length=255)
     platform = models.IntegerField(choices=PLATFORM_CHOICES)
     bild_type = models.IntegerField(null=True, blank=True)
@@ -13,11 +13,13 @@ class Patch (models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Test(models.Model):
     name = models.CharField(max_length=255)
 
     def __unicode__(self):
         return self.name
+
 
 class TestGrop(models.Model):
     name = models.CharField(max_length=255)
@@ -32,12 +34,14 @@ class TestGrop(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class TestSuiteType(models.Model):
     name = models.CharField(max_length=255)
     priority = models.IntegerField(choices=PRIORITY_CHOICES)
 
     def __unicode__(self):
         return self.name
+
 
 class TestSuite(models.Model):
     name = models.CharField(max_length=255)
@@ -48,13 +52,14 @@ class TestSuite(models.Model):
         return self.name
 
 
-class Config (models.Model):
+class Config(models.Model):
     patch = models.ForeignKey(Patch)
     suite = models.ForeignKey(TestSuite)
     settings = models.CharField(max_length=255)
 
     def __unicode__(self):
         return self.name
+
 
 class TestResult(models.Model):
     test_id = models.ForeignKey(Test)
@@ -64,6 +69,7 @@ class TestResult(models.Model):
 
     def __unicode__(self):
         return self.name
+
 
 class History(models.Model):
     test_suite = models.ForeignKey(TestSuite)

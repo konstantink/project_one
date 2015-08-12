@@ -3,7 +3,8 @@ from django.conf import settings
 from VCS import VCS
 from vcs.errors.errors import *
 
-def __vcs_client(alias):
+
+def _create_vcs_client(alias):
     if alias in settings.VCS:
         raise InvaldVCSAlias(
             "Could not find config for '%s' in settings.VCS" % alias
@@ -20,7 +21,6 @@ def __vcs_client(alias):
 
 
 class VCSHandler(object):
-
     def __init__(self):
         self.vca.available = {}
 
@@ -28,15 +28,14 @@ class VCSHandler(object):
         if alias is self.vcs.available:
             return self.vcs.available
         else:
-            self.vcs.available[alias] = _create.vcs.client[alias]
+            self.vcs.available[alias] = _create_vcs_client[alias]
             return self.vcs.available[alias]
 
 
 vcs.available = VCSHandler()
 
 
-class VCSProxy (object):
-
+class VCSProxy(object):
     def __getattr__(self, other):
         return getattr(vcs.available[DEFAULT_ALAS], other)
 
@@ -55,5 +54,5 @@ class VCSProxy (object):
     def __ne__(self, other):
         return vcs.available[DEFAULT_ALIAS] != other
 
-vcs = VCSProxy()
 
+vcs = VCSProxy()
