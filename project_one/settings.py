@@ -41,7 +41,6 @@ INSTALLED_APPS = (
     'south',
     'server',
 )
-
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -61,7 +60,7 @@ WSGI_APPLICATION = 'project_one.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE':'django.db.backends.postgresql_psycopg2',
         'NAME': 'mydb',
         'USER': 'patt',
         'PASSWORD': '7140819',
@@ -69,6 +68,18 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+
+VCS = {
+    'default': {
+        'LOCATION': 'svn://localhost',
+        'ENGINE': 'vcs.client,svn.client',
+        'HOST': '5431',
+        'USER': 'patt',
+        'PASSWORD': '7140819',
+    }
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
