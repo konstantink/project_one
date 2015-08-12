@@ -1,5 +1,5 @@
 from django.db import models
-from server.choices import all_choices
+from server.choices.all_choices import *
 
 
 class Patch (models.Model):
