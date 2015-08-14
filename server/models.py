@@ -1,8 +1,18 @@
 from django.db import models
-from server.choices.all_choices import *
 
 
 class Patch(models.Model):
+    Win32 = 0
+    Win64 = 1
+    Lin32 = 2
+    Lin64 = 3
+
+    PLATFORM_CHOICES = ((Win32, 'Win32'),
+                        (Win64, 'Win64'),
+                        (Lin32, 'Lin32'),
+                        (Lin64, 'Lin64'),
+                        )
+
     name = models.CharField(max_length=255)
     platform = models.IntegerField(choices=PLATFORM_CHOICES)
     bild_type = models.IntegerField(null=True, blank=True)
@@ -36,6 +46,15 @@ class TestGrop(models.Model):
 
 
 class TestSuiteType(models.Model):
+    Low = 0
+    Normal = 1
+    High = 2
+
+    PRIORITY_CHOICES = ((Low, 'Low'),
+                        (Normal, 'Normal'),
+                        (High, 'High'),
+                        )
+
     name = models.CharField(max_length=255)
     priority = models.IntegerField(choices=PRIORITY_CHOICES)
 
