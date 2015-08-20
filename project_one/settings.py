@@ -73,7 +73,7 @@ DATABASES = {
 VCS = {
     'default': {
         'LOCATION': 'http://svnurl.com/svn',
-        'ENGINE': 'vcs.client.svn_client',
+        'ENGINE': 'VCS.client.svn_client',
         'PORT': '7000',
         'HOST': 'localhost',
         'USER': 'patt',
