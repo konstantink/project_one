@@ -7,26 +7,13 @@ import pysvn
 
 class Client(object):
 
-    def __init__(self, user, password, urls):
+    def __init__(self, user, password, urls, get_login = None, get_log_message = None):
         self.user = user
         self.password = password
         self.urls = urls
         self.client = pysvn.Client()
-
-    def get_settings_conf(self, user, password, urls):
-        value_user = settings.VCS[user]
-        value_password = settings.VCS[password]
-        value_urls = settings.VCS[urls]
-        if self.user is None:
-            full_user = value_user.pop('USER')
-            self.user = import_string(full_user)
-        if self.password is None:
-            full_password = value_password.pop('PASSWORD')
-            self.password = import_string(full_password)
-        if self.urls is None:
-            full_urls = value_urls.pop('LOCATION')
-            self.urls = import_string(full_urls)
-        return self.user, self.password, self.urls
+        self.get_login = get_login
+        self.get_log_message = get_log_message
 
     def get_login(self, *args):
         return True, self.user, self.password, True
@@ -45,7 +32,7 @@ class Client(object):
         return self.client
 
     def export(self):
-        self.client.export('file://' + self.urls)
+        self.client.export(self.urls)
 
     def get_tag(self):
-        client.copy('http://svnurl.com/svn/trunk', 'http://svnurl.com/svn/tag/%s' % tag_name)
+        client.copy(self.urls + 'trunk', self.urls + 'tag/%s' % tag_name)
