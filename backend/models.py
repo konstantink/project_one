@@ -26,20 +26,18 @@ class Patch(models.Model):
 
 class Test(models.Model):
     name = models.CharField(max_length=255)
+    group = models.ForeignKey('TestGroup', related_name='tests')
 
     def __unicode__(self):
         return self.name
 
 
-class TestGrop(models.Model):
+class TestGroup(models.Model):
     name = models.CharField(max_length=255)
-    group = models.ManyToManyField(Test)
-    libraries = models.CharField(max_length=255)
-    parent_group = models.ForeignKey("self")
-    group_type = models.IntegerField(null=True, blank=True)
-    rivera = models.CharField(max_length=255, null=True, blank=True)
-    lint = models.CharField(max_length=255, null=True, blank=True)
-    patch = models.CharField(max_length=255, null=True, blank=True)
+    # test = models.ManyToManyField(Test)
+    libraries = models.CharField(max_length=255, blank=True, null=True)
+    parent_group = models.ForeignKey("self", null=True, blank=True)
+    # group_type = models.IntegerField(null=True, blank=True)
 
     def __unicode__(self):
         return self.name
@@ -65,7 +63,7 @@ class TestSuiteType(models.Model):
 class TestSuite(models.Model):
     name = models.CharField(max_length=255)
     suite = models.ForeignKey(TestSuiteType)
-    test_group = models.ManyToManyField(TestGrop)
+    test_group = models.ManyToManyField(TestGroup)
 
     def __unicode__(self):
         return self.name
@@ -92,7 +90,7 @@ class TestResult(models.Model):
 
 class History(models.Model):
     test_suite = models.ForeignKey(TestSuite)
-    group_id = models.ForeignKey(TestGrop)
+    group_id = models.ForeignKey(TestGroup)
     test_id = models.ForeignKey(Test)
     action = models.CharField(max_length=255)
     comment = models.TextField()

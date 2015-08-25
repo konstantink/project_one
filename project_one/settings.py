@@ -38,8 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'south',
-    'server',
+    # 'south',
+    'backend',
 )
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -73,7 +73,7 @@ DATABASES = {
 VCS = {
     'default': {
         'LOCATION': 'http://svnurl.com/svn',
-        'ENGINE': 'VCS.client.svn_client',
+        'ENGINE': 'VCS.client.SVNClient',
         'PORT': '7000',
         'HOST': 'localhost',
         'USER': 'patt',
@@ -100,3 +100,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+try:
+    from settings_local import *
+except ImportError:
+    pass
